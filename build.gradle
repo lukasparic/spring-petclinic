@@ -16,7 +16,7 @@ version = '3.5.0'
 
 java {
   toolchain {
-    languageVersion = JavaLanguageVersion.of(17)
+    languageVersion = JavaLanguageVersion.of(21)
   }
 }
 
@@ -88,4 +88,12 @@ formatAotTest.enabled = false
 wrapper {
   gradleVersion = "8.14.3"
   distributionType = Wrapper.DistributionType.ALL
+}
+
+tasks.register('openUrlInBrowser') {
+    dependsOn 'build'
+    dependsOn 'test'
+    doLast {
+        java.awt.Desktop.desktop.browse file("build/reports/tests/test/index.html").toURI()
+    }
 }
